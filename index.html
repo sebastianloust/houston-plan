@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Completo Houston 2026 — Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 2rem 1rem;
+            color: white;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+            justify-content: center;
+            flex-wrap: wrap;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn {
+            padding: 0.7rem 1.5rem;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            color: white;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-color: #2563eb;
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* INGRESOS */
+        .total-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+        }
+
+        .total-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #10b981;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card.purple {
+            border-left-color: #8b5cf6;
+        }
+
+        .card.blue {
+            border-left-color: #3b82f6;
+        }
+
+        .card.amber {
+            border-left-color: #f59e0b;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 0.75rem;
+        }
+
+        .card.purple .card-amount {
+            color: #8b5cf6;
+        }
+
+        .card.blue .card-amount {
+            color: #3b82f6;
+        }
+
+        .card.amber .card-amount {
+            color: #f59e0b;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* SISTEMA */
+        .system-box {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .system-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+        }
+
+        .system-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+        }
+
+        .system-row:last-child {
+            border-bottom: none;
+        }
+
+        .system-label {
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+        .system-amount {
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* ESCENARIOS */
+        .scenario-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            align-items: center;
+        }
+
+        .scenario-badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-base {
+            background: #fcebeb;
+            color: #a32d2d;
+        }
+
+        .badge-intermediate {
+            background: #faeeda;
+            color: #854f0b;
+        }
+
+        .badge-normal {
+            background: #eaf3de;
+            color: #27500a;
+        }
+
+        .badge-complete {
+            background: #eeedfe;
+            color: #3c3489;
+        }
+
+        .scenario-label {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .scenario-result {
+            text-align: right;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+
+        /* CARROS */
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #3b82f6;
+            transition: transform 0.3s ease;
+        }
+
+        .car-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .car-card.best {
+            border-top-color: #10b981;
+        }
+
+        .car-card.premium {
+            border-top-color: #f59e0b;
+        }
+
+        .car-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #eff6ff;
+            color: #0284c7;
+            margin-bottom: 0.75rem;
+        }
+
+        .car-badge.best {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .car-badge.premium {
+            background: #fffbf0;
+            color: #b45309;
+        }
+
+        .car-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
+        }
+
+        .car-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3b82f6;
+            margin-bottom: 0.75rem;
+        }
+
+        .car-spec {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        /* REGLAS */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .rule {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-top: 3px solid #ef4444;
+        }
+
+        .rule-num {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .rule-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-text {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .rule.green {
+            border-top-color: #10b981;
+        }
+
+        .rule.blue {
+            border-top-color: #3b82f6;
+        }
+
+        .rule.amber {
+            border-top-color: #f59e0b;
+        }
+
+        /* CARFAX */
+        .carfax-box {
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid #0284c7;
+            margin-bottom: 1.5rem;
+        }
+
+        .carfax-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0c2340;
+            margin-bottom: 0.75rem;
+        }
+
+        .carfax-items {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .carfax-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: #0c2340;
+            align-items: start;
+        }
+
+        .carfax-check {
+            width: 18px;
+            height: 18px;
+            background: #0284c7;
+            color: white;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .note {
+            background: linear-gradient(135deg, #fef3c7, #fef08a);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border-left: 3px solid #f59e0b;
+            margin-top: 2rem;
+        }
+
+        .note-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-text {
+            font-size: 0.85rem;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            color: #cbd5e1;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .scenario-row {
+                grid-template-columns: 1fr;
+            }
+            .nav-tabs {
+                justify-content: flex-start;
+                padding: 0.75rem;
+                gap: 0.25rem;
+            }
+            .nav-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Plan Completo Houston 2026</h1>
+        <p>Relocalización | Presupuesto | Adquisición de Vehículo</p>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" onclick="showSection('ingresos')">💰 Ingresos</button>
+        <button class="nav-btn" onclick="showSection('gastos')">💸 Gastos</button>
+        <button class="nav-btn" onclick="showSection('resultado')">📊 Resultado</button>
+        <button class="nav-btn" onclick="showSection('carros')">🚗 Carros</button>
+        <button class="nav-btn" onclick="showSection('carfax')">🔍 CARFAX</button>
+        <button class="nav-btn" onclick="showSection('reglas')">⚡ Reglas</button>
+    </div>
+
+    <div class="container">
+        <!-- INGRESOS -->
+        <div id="ingresos" class="section active">
+            <div class="total-box">
+                <div class="total-label">Total mes normal</div>
+                <div class="total-value">$3,842</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">GI Bill + Trabajo + Uber (baseline)</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🎓 GI Bill Chapter 35</div>
+                    <div class="card-amount">$1,400</div>
+                    <div class="card-desc">Libre de impuestos. Deposito directo mensual a USAA.</div>
+                </div>
+                <div class="card purple">
+                    <div class="card-title">💼 Trabajo ($14/hr × 40hrs)</div>
+                    <div class="card-amount">$2,030</div>
+                    <div class="card-desc">Neto después de impuestos. Bruto: ~$2,426.</div>
+                </div>
+                <div class="card blue">
+                    <div class="card-title">🚗 Uber/Eats</div>
+                    <div class="card-amount">$412</div>
+                    <div class="card-desc">Neto (bruto ~$450 − 15% tax reserve).</div>
+                </div>
+                <div class="card amber">
+                    <div class="card-title">💰 Financial Aid</div>
+                    <div class="card-amount">+$1,100</div>
+                    <div class="card-desc">Esporádico. 70% → ahorro automático.</div>
+                </div>
+            </div>
+
+            <div class="system-box">
+                <div class="system-title">Sistema de asignación</div>
+                <div class="system-row">
+                    <span class="system-label">🚗 Uber ($412)</span>
+                    <span class="system-amount">Paga GMC Canyon</span>
+                </div>
+                <div class="system-row">
+                    <span class="system-label">💼 Trabajo ($2,030)</span>
+                    <span class="system-amount">Paga renta + servicios</span>
+                </div>
+                <div class="system-row">
+                    <span class="system-label">🎓 GI Bill ($1,400)</span>
+                    <span class="system-amount">Paga vida diaria</span>
+                </div>
+                <div class="system-row">
+                    <span class="system-label">💾 Financial Aid</span>
+                    <span class="system-amount">70% → Ahorro</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GASTOS -->
+        <div id="gastos" class="section">
+            <div class="total-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);">
+                <div class="total-label">Total gastos mensuales</div>
+                <div class="total-value">−$2,495</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <div class="card-title">🏠 Vivienda</div>
+                    <div class="card-amount" style="color: #f59e0b;">$1,030</div>
+                    <div class="card-desc">Renta $850 + Electricidad $110 + Internet $70</div>
+                </div>
+                <div class="card" style="border-left-color: #3b82f6;">
+                    <div class="card-title">🚗 GMC Canyon</div>
+                    <div class="card-amount" style="color: #3b82f6;">$445</div>
+                    <div class="card-desc">Seguro $155 + Gasolina $240 + Mantenimiento $50</div>
+                </div>
+                <div class="card" style="border-left-color: #8b5cf6;">
+                    <div class="card-title">🍔 Vida diaria</div>
+                    <div class="card-amount" style="color: #8b5cf6;">$735</div>
+                    <div class="card-desc">Teléfono $130 + Comida $280 + Personal $325</div>
+                </div>
+                <div class="card" style="border-left-color: #ec4899;">
+                    <div class="card-title">💻 Tech/Proyectos</div>
+                    <div class="card-amount" style="color: #ec4899;">$285</div>
+                    <div class="card-desc">Música $200 + Claude Pro $40 + Suscripciones $45</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTADO -->
+        <div id="resultado" class="section">
+            <div class="total-box" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);">
+                <div class="total-label">Resultado mes normal</div>
+                <div class="total-value">+$1,347</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">Disponible después de gastos</div>
+            </div>
+
+            <div class="system-box">
+                <div class="system-title">Los 4 Escenarios</div>
+                <div class="scenario-row">
+                    <div>
+                        <div class="scenario-badge badge-base">Base</div>
+                        <div class="scenario-label">Solo GI Bill ($1,400)</div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.85rem; color: #64748b;">Imposible</div>
+                    <div class="scenario-result negative">−$1,095</div>
+                </div>
+                <div class="scenario-row">
+                    <div>
+                        <div class="scenario-badge badge-intermediate">Intermedio</div>
+                        <div class="scenario-label">GI Bill + Trabajo</div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.85rem; color: #64748b;">$3,430</div>
+                    <div class="scenario-result">+$935</div>
+                </div>
+                <div class="scenario-row">
+                    <div>
+                        <div class="scenario-badge badge-normal">Normal</div>
+                        <div class="scenario-label">GI Bill + Trabajo + Uber</div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.85rem; color: #64748b;">$3,842</div>
+                    <div class="scenario-result positive">+$1,347</div>
+                </div>
+                <div class="scenario-row">
+                    <div>
+                        <div class="scenario-badge badge-complete">Completo</div>
+                        <div class="scenario-label">Todo + Financial Aid</div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.85rem; color: #64748b;">$4,942</div>
+                    <div class="scenario-result positive">+$2,447</div>
+                </div>
+            </div>
+
+            <div class="system-box">
+                <div class="system-title">Distribución mes normal</div>
+                <div class="system-row">
+                    <span class="system-label">🏦 Ahorro fijo USAA Savings</span>
+                    <span class="system-amount">$700</span>
+                </div>
+                <div class="system-row">
+                    <span class="system-label">🚗 Reserva taxes Uber</span>
+                    <span class="system-amount">$70</span>
+                </div>
+                <div class="system-row">
+                    <span class="system-label">💰 Flex libre</span>
+                    <span class="system-amount">$577</span>
+                </div>
+            </div>
+
+            <div class="note">
+                <div class="note-title">📈 Colchón de emergencia</div>
+                <div class="note-text">En proceso. $700/mes automático generará colchón sólido en 4 meses. Protocolo: transferencia automática, sin tocar.</div>
+            </div>
+        </div>
+
+        <!-- CARROS -->
+        <div id="carros" class="section">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                <p style="color: #64748b; font-size: 0.9rem;">3 opciones de GMC Canyon • Crew Cab • Motor V6 3.6L • Todas en CASH</p>
+            </div>
+
+            <div class="car-grid">
+                <div class="car-card best">
+                    <div class="car-badge best">Mejor Valor</div>
+                    <div class="car-name">2019 SLE/SLT</div>
+                    <div class="car-price">$13,000–$15,000</div>
+                    <div class="car-spec">
+                        <span>📊</span> <span>70k–90k millas</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>⚙️</span> <span>6-speed automática</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>⏰</span> <span>7 años</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>📈</span> <span>11–15 años vida útil</span>
+                    </div>
+                </div>
+
+                <div class="car-card">
+                    <div class="car-badge">Recomendado</div>
+                    <div class="car-name">2020 SLE/Elevation</div>
+                    <div class="car-price">$14,500–$16,500</div>
+                    <div class="car-spec">
+                        <span>📊</span> <span>80k–110k millas</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>⚙️</span> <span>8-speed automática</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>⭐</span> <span>4.7/5 confiabilidad</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>📈</span> <span>10–13 años vida útil</span>
+                    </div>
+                </div>
+
+                <div class="car-card premium">
+                    <div class="car-badge premium">Premium</div>
+                    <div class="car-name">2021 Elevation</div>
+                    <div class="car-price">$16,000–$18,000</div>
+                    <div class="car-spec">
+                        <span>📊</span> <span>65k–90k millas</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>⚙️</span> <span>10-speed automática</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>✨</span> <span>Generación más nueva</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>📈</span> <span>12–15 años vida útil</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <div class="note-title">✓ Antes de comprar cualquiera</div>
+                <div class="note-text">CARFAX sin accidentes • Mecánico pre-compra (~$100) • Transmisión flush • Verificar VIN • Buscar en Facebook Marketplace Houston</div>
+            </div>
+        </div>
+
+        <!-- CARFAX -->
+        <div id="carfax" class="section">
+            <div class="carfax-box">
+                <div class="carfax-title">⚡ Cómo hacerlo ahora (5 minutos)</div>
+                <div class="carfax-items">
+                    <div class="carfax-item">
+                        <div class="carfax-check">1</div>
+                        <div>Ve a <strong>carfax.com</strong></div>
+                    </div>
+                    <div class="carfax-item">
+                        <div class="carfax-check">2</div>
+                        <div>Ingresa el <strong>VIN</strong> del carro</div>
+                    </div>
+                    <div class="carfax-item">
+                        <div class="carfax-check">3</div>
+                        <div>Compra el reporte (~$40 USD)</div>
+                    </div>
+                    <div class="carfax-item">
+                        <div class="carfax-check">4</div>
+                        <div>Revisa los puntos críticos</div>
+                    </div>
+                    <div class="carfax-item">
+                        <div class="carfax-check">5</div>
+                        <div>Red flags → <strong>NO compres</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-left-color: #10b981;">
+                    <div class="card-title">✅ Buenas señales</div>
+                    <div class="card-desc">
+                        • Sin accidentes<br>
+                        • 1–2 dueños<br>
+                        • Sin salvage title<br>
+                        • Servicios regulares<br>
+                        • Sin daño estructural
+                    </div>
+                </div>
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <div class="card-title">⚠️ Cuidado</div>
+                    <div class="card-desc">
+                        • 3+ dueños rápido<br>
+                        • 1 accidente minor<br>
+                        • Reparaciones costosas<br>
+                        • Título branded<br>
+                        • Millas muy altas
+                    </div>
+                </div>
+                <div class="card" style="border-left-color: #ef4444;">
+                    <div class="card-title">❌ No compres</div>
+                    <div class="card-desc">
+                        • Accidentes major<br>
+                        • Salvage/flood title<br>
+                        • Daño estructural<br>
+                        • 5+ dueños<br>
+                        • Garantía negada
+                    </div>
+                </div>
+                <div class="card" style="border-left-color: #8b5cf6;">
+                    <div class="card-title">🚨 GMC Canyon</div>
+                    <div class="card-desc">
+                        • Transmisión 2019 débil<br>
+                        • Flood damage crítico<br>
+                        • Motor reemplazado<br>
+                        • Millas inconsistentes<br>
+                        • Título rebuilt
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGLAS -->
+        <div id="reglas" class="section">
+            <div class="rules-grid">
+                <div class="rule">
+                    <div class="rule-num">1</div>
+                    <div class="rule-title">Presupuesta con $3,842</div>
+                    <div class="rule-text">Baseline. Financial aid es bonus, no base.</div>
+                </div>
+                <div class="rule green">
+                    <div class="rule-num">2</div>
+                    <div class="rule-title">$700 auto-transfer</div>
+                    <div class="rule-text">Día del cheque → USAA Savings, primero.</div>
+                </div>
+                <div class="rule amber">
+                    <div class="rule-num">3</div>
+                    <div class="rule-title">Financial Aid 70%</div>
+                    <div class="rule-text">$770 → ahorro automático, $330 libre.</div>
+                </div>
+                <div class="rule blue">
+                    <div class="rule-num">4</div>
+                    <div class="rule-title">Uber taxes separado</div>
+                    <div class="rule-text">15% → IRS subcuenta (Stride Tax).</div>
+                </div>
+                <div class="rule amber">
+                    <div class="rule-num">5</div>
+                    <div class="rule-title">Renta máxima $900</div>
+                    <div class="rule-text">Límite no negociable o presupuesto se rompe.</div>
+                </div>
+                <div class="rule">
+                    <div class="rule-num">6</div>
+                    <div class="rule-title">Trabajo en 30 días</div>
+                    <div class="rule-text">Sin él: −$1,020 déficit. Crítico.</div>
+                </div>
+                <div class="rule green">
+                    <div class="rule-num">7</div>
+                    <div class="rule-title">$2,000 intocable</div>
+                    <div class="rule-text">Solo emergencia: carro, salud, GI Bill falla.</div>
+                </div>
+                <div class="rule amber">
+                    <div class="rule-num">8</div>
+                    <div class="rule-title">Canyon en CASH</div>
+                    <div class="rule-text">Sin pagos. Uber cubre operativo exacto.</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <div class="note-title">⚠️ Estas reglas son guardrails</div>
+                <div class="note-text">No son sugerencias. Síguelas exactamente para sobrevivir y prosperar en Houston.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">Plan Completo Houston 2026</p>
+        <p style="font-size: 0.85rem;">Presentación interactiva | Junio 1 lanzamiento | 17 días</p>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
