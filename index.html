@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Completo Houston 2026 — Interactivo</title>
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <style>
         * {
             margin: 0;
@@ -522,7 +524,9 @@
         <button class="nav-btn active" onclick="showSection('ingresos')">💰 Ingresos</button>
         <button class="nav-btn" onclick="showSection('gastos')">💸 Gastos</button>
         <button class="nav-btn" onclick="showSection('resultado')">📊 Resultado</button>
-        <button class="nav-btn" onclick="showSection('carros')">🚗 Carros</button>
+        <button class="nav-btn" onclick="showSection('carros')">🚗 F-150 XLT 2019</button>
+        <button class="nav-btn" onclick="showSection('ubicaciones')">📍 Ubicaciones</button>
+        <button class="nav-btn" onclick="showSection('viajes')">✈️ Viajes</button>
         <button class="nav-btn" onclick="showSection('carfax')">🔍 CARFAX</button>
         <button class="nav-btn" onclick="showSection('reglas')">⚡ Reglas</button>
     </div>
@@ -677,71 +681,196 @@
             </div>
         </div>
 
-        <!-- CARROS -->
+        <!-- FORD F-150 XLT 2019 -->
         <div id="carros" class="section">
             <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
-                <p style="color: #64748b; font-size: 0.9rem;">3 opciones de GMC Canyon • Crew Cab • Motor V6 3.6L • Todas en CASH</p>
+                <p style="color: #64748b; font-size: 0.9rem;">Ford F-150 XLT Pickup 2019 • Crew Cab 4D • 5½ ft bed • Motor V8 • CASH</p>
             </div>
 
             <div class="car-grid">
                 <div class="car-card best">
-                    <div class="car-badge best">Mejor Valor</div>
-                    <div class="car-name">2019 SLE/SLT</div>
-                    <div class="car-price">$13,000–$15,000</div>
+                    <div class="car-badge best">✅ SELECCIONADA</div>
+                    <div class="car-name">2019 Ford F-150 XLT</div>
+                    <div class="car-price">$16,000</div>
                     <div class="car-spec">
-                        <span>📊</span> <span>70k–90k millas</span>
+                        <span>🔴</span> <span>Color: Negro con interior gris</span>
                     </div>
                     <div class="car-spec">
-                        <span>⚙️</span> <span>6-speed automática</span>
+                        <span>📊</span> <span>150,020 millas</span>
                     </div>
                     <div class="car-spec">
-                        <span>⏰</span> <span>7 años</span>
+                        <span>⚙️</span> <span>Automática 10-speed</span>
                     </div>
                     <div class="car-spec">
-                        <span>📈</span> <span>11–15 años vida útil</span>
-                    </div>
-                </div>
-
-                <div class="car-card">
-                    <div class="car-badge">Recomendado</div>
-                    <div class="car-name">2020 SLE/Elevation</div>
-                    <div class="car-price">$14,500–$16,500</div>
-                    <div class="car-spec">
-                        <span>📊</span> <span>80k–110k millas</span>
+                        <span>📄</span> <span>Título limpio ✅</span>
                     </div>
                     <div class="car-spec">
-                        <span>⚙️</span> <span>8-speed automática</span>
+                        <span>🔧</span> <span>Recibos completos ✅</span>
                     </div>
                     <div class="car-spec">
-                        <span>⭐</span> <span>4.7/5 confiabilidad</span>
+                        <span>⏰</span> <span>7 años (2019)</span>
                     </div>
                     <div class="car-spec">
-                        <span>📈</span> <span>10–13 años vida útil</span>
+                        <span>🏪</span> <span>Dealership (346-892-0440)</span>
+                    </div>
+                    <div class="car-spec">
+                        <span>📅</span> <span>Cita: June 1–2, 2026</span>
                     </div>
                 </div>
 
-                <div class="car-card premium">
-                    <div class="car-badge premium">Premium</div>
-                    <div class="car-name">2021 Elevation</div>
-                    <div class="car-price">$16,000–$18,000</div>
-                    <div class="car-spec">
-                        <span>📊</span> <span>65k–90k millas</span>
+                <div class="card" style="border-left-color: #10b981; margin-top: 0;">
+                    <div class="card-title">✅ Ventajas F-150 vs GMC Canyon</div>
+                    <div class="card-desc">
+                        • Mayor confiabilidad<br>
+                        • Mejor resale value<br>
+                        • Transmisión 10-speed (más suave)<br>
+                        • 150k millas = durabilidad F-150<br>
+                        • Dealership = más seguro<br>
+                        • Precio dentro de presupuesto
                     </div>
-                    <div class="car-spec">
-                        <span>⚙️</span> <span>10-speed automática</span>
-                    </div>
-                    <div class="car-spec">
-                        <span>✨</span> <span>Generación más nueva</span>
-                    </div>
-                    <div class="car-spec">
-                        <span>📈</span> <span>12–15 años vida útil</span>
+                </div>
+
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <div class="card-title">⚠️ Plan de Acción</div>
+                    <div class="card-desc">
+                        1. Test drive June 1–2<br>
+                        2. Revisar CARFAX (~$40)<br>
+                        3. Si ok: pagar cash<br>
+                        4. Transferencia de título<br>
+                        5. Registro en Houston
                     </div>
                 </div>
             </div>
 
             <div class="note">
-                <div class="note-title">✓ Antes de comprar cualquiera</div>
-                <div class="note-text">CARFAX sin accidentes • Mecánico pre-compra (~$100) • Transmisión flush • Verificar VIN • Buscar en Facebook Marketplace Houston</div>
+                <div class="note-title">📍 Contacto Dealership</div>
+                <div class="note-text"><strong>Teléfono:</strong> 346-892-0440 | <strong>Fecha:</strong> June 1–2, 2026 | <strong>Presupuesto:</strong> $16,000 cash (sin financiamiento)</div>
+            </div>
+        </div>
+
+        <!-- UBICACIONES & MAPA -->
+        <div id="ubicaciones" class="section">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                <p style="color: #64748b; font-size: 0.9rem;">Puntos clave en Houston • Distancias desde Villa Luna Apartments</p>
+            </div>
+
+            <div id="mapa" style="width: 100%; height: 500px; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); background: #f1f5f9;"></div>
+
+            <div class="grid-2">
+                <div class="card" style="border-left-color: #3b82f6;">
+                    <div class="card-title">🏫 HCC Central Campus</div>
+                    <div class="card-desc">
+                        <strong>Dirección:</strong> 1300 Holman St, Midtown<br>
+                        <strong>Distancia:</strong> ~2–3 millas (15–20 min)<br>
+                        <strong>Programa:</strong> AAS Artificial Intelligence (Oct 2026)<br>
+                        <strong>Financiamiento:</strong> GI Bill 100%
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #10b981;">
+                    <div class="card-title">🏠 Villa Luna Apartments</div>
+                    <div class="card-desc">
+                        <strong>Dirección:</strong> 2600 Westridge, Houston TX 77054<br>
+                        <strong>Zona:</strong> Medical Center / South Main<br>
+                        <strong>Renta:</strong> $799/mes (+ ~$200 utilities)<br>
+                        <strong>Contacto:</strong> Tony Anderson — 832-573-1418
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #8b5cf6;">
+                    <div class="card-title">🏨 Airbnb (Semana 1)</div>
+                    <div class="card-desc">
+                        <strong>Zona:</strong> Cerca de HCC Central / Midtown<br>
+                        <strong>Duración:</strong> June 1–6 (6 noches)<br>
+                        <strong>Costo total:</strong> $283.05<br>
+                        <strong>Check-out:</strong> June 6 (move-in a Villa Luna)
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <div class="card-title">💪 Planet Fitness</div>
+                    <div class="card-desc">
+                        <strong>Ubicación:</strong> Múltiples en Houston<br>
+                        <strong>Costo:</strong> $10–15/mes<br>
+                        <strong>Beneficios:</strong> Ducha, gym, amenidades<br>
+                        <strong>Recomendado:</strong> Cerca de Villa Luna
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <div class="note-title">📌 Puntos Críticos</div>
+                <div class="note-text">
+                    • <strong>Zona de trabajo:</strong> Buscar empleos en Medical Center, Midtown, Downtown<br>
+                    • <strong>Ruta diaria HCC:</strong> Villa Luna → HCC = 15–20 min (bus/camioneta)<br>
+                    • <strong>Shopping:</strong> Próximo a Villa Luna hay centros comerciales
+                </div>
+            </div>
+        </div>
+
+        <!-- VIAJES -->
+        <div id="viajes" class="section">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+                <p style="color: #64748b; font-size: 0.9rem;">Itinerario El Paso → Houston • Mayo 31 - Junio 2, 2026</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card" style="border-left-color: #ef4444;">
+                    <div class="card-title">🚌 Greyhound (El Paso → Dallas)</div>
+                    <div class="card-desc">
+                        <strong>Salida:</strong> Domingo, May 31 @ 5:40 PM (El Paso)<br>
+                        <strong>Llegada:</strong> Lunes, June 1 @ 7:10 AM (Dallas)<br>
+                        <strong>Duración:</strong> ~13.5 horas<br>
+                        <strong>Costo:</strong> ~$40–50<br>
+                        <strong>Acción:</strong> Confirmar boleto esta semana
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #3b82f6;">
+                    <div class="card-title">🚌 FlixBus (Dallas → Houston)</div>
+                    <div class="card-desc">
+                        <strong>Salida:</strong> Lunes, June 1 @ 7:10 AM (Dallas)<br>
+                        <strong>Transferencia:</strong> 25 minutos<br>
+                        <strong>Llegada:</strong> Lunes, June 1 @ 12:15 PM (Houston Gray St, Midtown)<br>
+                        <strong>Costo:</strong> ~$20–30<br>
+                        <strong>Total viaje:</strong> $60–80 (vs vuelos $300+)
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #10b981;">
+                    <div class="card-title">🏨 Airbnb Houston (Semana 1)</div>
+                    <div class="card-desc">
+                        <strong>Check-in:</strong> June 1, 12:15 PM (Midtown)<br>
+                        <strong>Duración:</strong> 6 noches (June 1–6)<br>
+                        <strong>Costo total:</strong> $283.05<br>
+                        <strong>Zona:</strong> Cerca de HCC Central Campus<br>
+                        <strong>Check-out:</strong> June 6 (move-in Villa Luna)
+                    </div>
+                </div>
+
+                <div class="card" style="border-left-color: #f59e0b;">
+                    <div class="card-title">🚗 Test Drive F-150</div>
+                    <div class="card-desc">
+                        <strong>Fecha:</strong> June 1–2 (primer/segundo día)<br>
+                        <strong>Contacto:</strong> 346-892-0440 (Dealership)<br>
+                        <strong>Duración:</strong> ~2 horas<br>
+                        <strong>Acciones:</strong> CARFAX, mecánico, cash payment<br>
+                        <strong>Meta:</strong> Completar antes de June 3
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <div class="note-title">✈️ Timeline General</div>
+                <div class="note-text">
+                    <strong>May 31:</strong> Salir de El Paso 5:40 PM<br>
+                    <strong>June 1 12:15 PM:</strong> Llegar a Houston (Midtown)<br>
+                    <strong>June 1–6:</strong> Airbnb transitorio<br>
+                    <strong>June 1–2:</strong> Test drive F-150 + CARFAX<br>
+                    <strong>June 4–5:</strong> Confirmar Villa Luna<br>
+                    <strong>June 6+:</strong> Vivienda permanente (Villa Luna)<br>
+                    <strong>June 1–30:</strong> Buscar empleo (guardrail)
+                </div>
             </div>
         </div>
 
@@ -874,6 +1003,7 @@
         <p style="font-size: 0.85rem;">Presentación interactiva | Junio 1 lanzamiento | 17 días</p>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
         function showSection(sectionId) {
             // Hide all sections
@@ -890,9 +1020,91 @@
             // Add active class to clicked button
             event.target.classList.add('active');
 
+            // Initialize map if ubicaciones section is shown
+            if (sectionId === 'ubicaciones') {
+                setTimeout(initializeMap, 100);
+            }
+
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function initializeMap() {
+            // Remove existing map if it exists
+            if (window.map) {
+                window.map.remove();
+            }
+
+            // Initialize map centered on Houston
+            const map = L.map('mapa').setView([29.7589, -95.3677], 12);
+            window.map = map;
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Define locations
+            const locations = [
+                {
+                    name: 'Villa Luna Apartments 🏠',
+                    lat: 29.7129,
+                    lng: -95.4295,
+                    color: '#10b981',
+                    desc: '2600 Westridge, Houston TX 77054<br>$799/mes | 832-573-1418'
+                },
+                {
+                    name: 'HCC Central Campus 🏫',
+                    lat: 29.7489,
+                    lng: -95.3804,
+                    color: '#3b82f6',
+                    desc: '1300 Holman St, Midtown<br>AAS AI • GI Bill 100%'
+                },
+                {
+                    name: 'Airbnb (Semana 1) 🏨',
+                    lat: 29.7600,
+                    lng: -95.3700,
+                    color: '#8b5cf6',
+                    desc: 'Midtown<br>June 1–6 • $283.05'
+                },
+                {
+                    name: 'Dealership (F-150) 🚗',
+                    lat: 29.7200,
+                    lng: -95.3800,
+                    color: '#ef4444',
+                    desc: 'Test drive: 346-892-0440<br>June 1–2'
+                },
+                {
+                    name: 'Planet Fitness 💪',
+                    lat: 29.7300,
+                    lng: -95.4200,
+                    color: '#f59e0b',
+                    desc: '$10–15/mes<br>Gym + ducha'
+                }
+            ];
+
+            // Add markers
+            locations.forEach(loc => {
+                const marker = L.circleMarker([loc.lat, loc.lng], {
+                    radius: 10,
+                    fillColor: loc.color,
+                    color: '#fff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map);
+
+                marker.bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+            });
+        }
+
+        // Initialize map on page load if ubicaciones is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('ubicaciones').classList.contains('active')) {
+                setTimeout(initializeMap, 100);
+            }
+        });
     </script>
 </body>
 </html>
