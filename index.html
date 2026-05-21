@@ -587,30 +587,40 @@
         <!-- GASTOS -->
         <div id="gastos" class="section">
             <div class="total-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);">
-                <div class="total-label">Total gastos mensuales</div>
-                <div class="total-value">−$2,495</div>
+                <div class="total-label">Total gastos mensuales (Houston optimizado)</div>
+                <div class="total-value">−$2,394</div>
             </div>
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #f59e0b;">
                     <div class="card-title">🏠 Vivienda</div>
-                    <div class="card-amount" style="color: #f59e0b;">$1,030</div>
-                    <div class="card-desc">Renta $850 + Electricidad $110 + Internet $70</div>
+                    <div class="card-amount" style="color: #f59e0b;">$999</div>
+                    <div class="card-desc">Renta $799 (Villa Luna) + Utilities ~$200</div>
                 </div>
                 <div class="card" style="border-left-color: #3b82f6;">
-                    <div class="card-title">🚗 GMC Canyon</div>
-                    <div class="card-amount" style="color: #3b82f6;">$445</div>
-                    <div class="card-desc">Seguro $155 + Gasolina $240 + Mantenimiento $50</div>
+                    <div class="card-title">🚗 Ford F-150 XLT</div>
+                    <div class="card-amount" style="color: #3b82f6;">$245</div>
+                    <div class="card-desc">Gasolina $150 + Mantenimiento $45 + Estacionamiento $50</div>
                 </div>
                 <div class="card" style="border-left-color: #8b5cf6;">
                     <div class="card-title">🍔 Vida diaria</div>
-                    <div class="card-amount" style="color: #8b5cf6;">$735</div>
-                    <div class="card-desc">Teléfono $130 + Comida $280 + Personal $325</div>
+                    <div class="card-amount" style="color: #8b5cf6;">$400</div>
+                    <div class="card-desc">Teléfono $90 + Comida $310</div>
                 </div>
                 <div class="card" style="border-left-color: #ec4899;">
-                    <div class="card-title">💻 Tech/Proyectos</div>
-                    <div class="card-amount" style="color: #ec4899;">$285</div>
-                    <div class="card-desc">Música $200 + Claude Pro $40 + Suscripciones $45</div>
+                    <div class="card-title">💻 Suscripciones & Gym</div>
+                    <div class="card-amount" style="color: #ec4899;">$100</div>
+                    <div class="card-desc">Claude Pro $40 + Gym (Compound) $50 + Membresías $30</div>
+                </div>
+                <div class="card" style="border-left-color: #10b981;">
+                    <div class="card-title">🚌 Transporte Local</div>
+                    <div class="card-amount" style="color: #10b981;">$120</div>
+                    <div class="card-desc">METRo pass $50 + Uber ocasional $70</div>
+                </div>
+                <div class="card" style="border-left-color: #06b6d4; opacity: 0.8;">
+                    <div class="card-title">🎵 Música (⏸️ Pausado)</div>
+                    <div class="card-amount" style="color: #06b6d4;">$0</div>
+                    <div class="card-desc">Reanudar después de estabilización (June 30+)</div>
                 </div>
             </div>
         </div>
@@ -618,9 +628,9 @@
         <!-- RESULTADO -->
         <div id="resultado" class="section">
             <div class="total-box" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);">
-                <div class="total-label">Resultado mes normal</div>
-                <div class="total-value">+$1,347</div>
-                <div style="font-size: 0.9rem; opacity: 0.9;">Disponible después de gastos</div>
+                <div class="total-label">Resultado mes normal (Houston optimizado)</div>
+                <div class="total-value">+$1,448</div>
+                <div style="font-size: 0.9rem; opacity: 0.9;">Disponible después de gastos | $700 ahorro automático + $748 libre</div>
             </div>
 
             <div class="system-box">
@@ -1106,7 +1116,7 @@
                 }
             ];
 
-            // Add markers
+            // Add markers for locations
             locations.forEach(loc => {
                 const marker = L.circleMarker([loc.lat, loc.lng], {
                     radius: 10,
@@ -1118,6 +1128,40 @@
                 }).addTo(map);
 
                 marker.bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+            });
+
+            // Add work search zones (job hunting areas)
+            const workZones = [
+                {
+                    name: '💼 Downtown Houston',
+                    lat: 29.7604,
+                    lng: -95.3698,
+                    radius: 2000
+                },
+                {
+                    name: '💼 Medical Center',
+                    lat: 29.7200,
+                    lng: -95.4100,
+                    radius: 2500
+                },
+                {
+                    name: '💼 Midtown',
+                    lat: 29.7489,
+                    lng: -95.3804,
+                    radius: 1500
+                }
+            ];
+
+            // Draw work zones on map
+            workZones.forEach(zone => {
+                L.circle([zone.lat, zone.lng], {
+                    color: '#6366f1',
+                    fillColor: '#818cf8',
+                    fillOpacity: 0.15,
+                    weight: 2,
+                    dashArray: '5, 5',
+                    radius: zone.radius
+                }).addTo(map).bindPopup(`<strong>${zone.name}</strong><br>Zona de búsqueda de empleo`);
             });
         }
 
