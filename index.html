@@ -605,22 +605,39 @@
         }
 
         .ai-msg {
-            margin-bottom: 0.5rem;
-            padding: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding: 0.6rem 0.8rem;
             border-radius: 6px;
             font-size: 0.8rem;
-            line-height: 1.4;
+            line-height: 1.6;
+            word-wrap: break-word;
         }
 
         .ai-msg-user {
             background: #eff6ff;
             color: #0c2340;
             text-align: right;
+            margin-left: 1rem;
         }
 
         .ai-msg-bot {
             background: #f0fdf4;
             color: #0c2340;
+            margin-right: 0.5rem;
+        }
+
+        .ai-msg-bot strong {
+            color: #15803d;
+            font-weight: 600;
+        }
+
+        .ai-msg-bot ul, .ai-msg-bot ol {
+            margin: 0.4rem 0 0.4rem 1.2rem;
+            padding: 0;
+        }
+
+        .ai-msg-bot li {
+            margin-bottom: 0.2rem;
         }
 
         .ai-input-row {
@@ -946,17 +963,17 @@
                 </div>
                 <div class="ai-panel">
                     <div class="quick-prompts">
-                        <button class="quick-btn" onclick="sendQuickPrompt('☕ Cafés para trabajar cerca de Delia Street')">☕ Cafés</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🚌 Ruta METRO: Gray Street → 3014 Delia')">🚌 Ruta</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('💼 Empleos entry-level en Midtown')">💼 Trabajos</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🍔 Comida barata (<$10) cerca del Airbnb')">🍔 Comida</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Medical Center — cómo llegar y oportunidades')">🏥 Med</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🚌 Ruta METRO: Gray Street → 3014 Delia (Airbnb). Necesito llegar del bus a mi apartamento temporal.')">🚌 Gray→Airbnb</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('💼 ¿Cuáles son mis opciones para buscar trabajo en Midtown desde el Airbnb? Rutas, tiempo, mejores zonas.')">💼 Midtown Jobs</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🏫 ¿Cómo llego de 3014 Delia Street a HCC Central Campus? Ruta METRO, tiempo, opciones.')">🏫 Delia→HCC</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Plan para buscar trabajo en Medical Center. Rutas desde Airbnb y desde Villa Luna después.')">🏥 Med Center</button>
+                        <button class="quick-btn" onclick="showRoutes()">🗺️ Ver Rutas</button>
                     </div>
                     <div class="ai-chat" id="chat-history">
-                        <div class="ai-msg ai-msg-bot">Hola, soy tu asistente de Houston. Pregunta sobre lugares, rutas, empleos o comida. ¿Qué necesitas?</div>
+                        <div class="ai-msg ai-msg-bot">Hola, soy tu asistente de Houston. Tengo todos tus detalles: Airbnb en Delia (Jun 1-6), Villa Luna después, búsqueda de empleo en Midtown/Medical Center/Uptown. Pregunta sobre rutas, empleos, optimización. ¿Qué necesitas?</div>
                     </div>
                     <div class="ai-input-row">
-                        <input type="text" class="ai-input" id="chat-input" placeholder="Pregunta..." onkeypress="if(event.key==='Enter') sendMessage()">
+                        <input type="text" class="ai-input" id="chat-input" placeholder="Pregunta sobre rutas, empleos, optimización..." onkeypress="if(event.key==='Enter') sendMessage()">
                         <button class="ai-send" onclick="sendMessage()">→</button>
                     </div>
                 </div>
@@ -1319,9 +1336,37 @@
             const chatHistory = document.getElementById('chat-history');
             const msgDiv = document.createElement('div');
             msgDiv.className = `ai-msg ai-msg-${role}`;
-            msgDiv.textContent = text;
+            // Preserve line breaks and format
+            msgDiv.innerHTML = text.replace(/\n/g, '<br>');
             chatHistory.appendChild(msgDiv);
             chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function showRoutes() {
+            const routesInfo = `<strong>🗺️ RUTAS CRÍTICAS (Airbnb → Lugares Clave)</strong>
+
+<strong>1. Gray Street → 3014 Delia (Airbnb)</strong>
+🚌 Red Line → Northline Station → Route 44 → Delia St
+⏱️ 45-50 min | 💰 $1.25 | 🔄 Frecuencia: cada 15-20 min
+Alternativa: Uber $12-15 | No caminar de noche
+
+<strong>2. 3014 Delia → HCC Central (1300 Holman)</strong>
+🚌 Route 44 → Route 69 (directo a Midtown)
+⏱️ 25-35 min | 💰 $1.25 | 🔄 10-15 min frecuencia
+Después (Jun 7+): Villa Luna → HCC = 20-25 min (Route 11/82/9)
+
+<strong>3. 3014 Delia → Midtown (Búsqueda Trabajo)</strong>
+🚌 Red Line → Northline → Route 69 (Main St)
+⏱️ 20-30 min | 💰 $1.25 | ⭐ MEJOR PARA NETWORKING
+Parar en: Downtown Library (McKinney) o Starbucks Midtown
+
+<strong>4. 3014 Delia → Medical Center</strong>
+🚌 Route 3 o Route 83 (via Main St)
+⏱️ 30-45 min | 💰 $1.25 | 🔄 15 min frecuencia
+Alternativa: Red Line → Transfer → Route 91
+
+<strong>⭐ RECOMENDACIÓN:</strong> Compra METRO 7-day pass ($50) para Jun 1-6. Después considera Monthly ($50) si usas diario.`;
+            addChatMessage(routesInfo, 'bot');
         }
     </script>
 </body>
