@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Completo Houston 2026 — Interactivo</title>
+    <!-- Leaflet CSS for interactive map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <style>
         * {
             margin: 0;
@@ -951,23 +953,23 @@
 
             <div class="map-ai-layout">
                 <div class="map-container">
-                    <iframe id="map-embed" class="map-iframe" src="https://maps.google.com/maps?q=Houston+Texas&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                    <div id="mapa" style="width: 100%; height: 500px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);"></div>
                     <div class="map-buttons">
-                        <button class="map-btn active" onclick="changeLocation('3014+Delia+Street+Houston+TX+77026', this)">🏨 Airbnb</button>
-                        <button class="map-btn" onclick="changeLocation('Downtown+Houston+Gray+Street+Station', this)">🚌 Gray St</button>
-                        <button class="map-btn" onclick="changeLocation('2600+Westridge+Houston+TX+77054', this)">🏠 Villa Luna</button>
-                        <button class="map-btn" onclick="changeLocation('1300+Holman+St+Houston+TX+77004', this)">🏫 HCC</button>
-                        <button class="map-btn" onclick="changeLocation('Texas+Medical+Center+Houston', this)">🏥 Medical</button>
-                        <button class="map-btn" onclick="changeLocation('Midtown+Houston+TX', this)">💼 Midtown</button>
+                        <button class="map-btn" onclick="toggleLayer('cafes')">☕ Cafeterías</button>
+                        <button class="map-btn" onclick="toggleLayer('rutas')">🚌 Rutas METRO</button>
+                        <button class="map-btn" onclick="toggleLayer('jobs')">💼 Job Zones</button>
+                        <button class="map-btn" onclick="highlightRoute('gray_airbnb')">📍 Gray→Airbnb</button>
+                        <button class="map-btn" onclick="highlightRoute('delia_hcc')">📍 Delia→HCC</button>
+                        <button class="map-btn" onclick="highlightRoute('delia_midtown')">📍 Delia→Midtown</button>
                     </div>
                 </div>
                 <div class="ai-panel">
                     <div class="quick-prompts">
-                        <button class="quick-btn" onclick="sendQuickPrompt('🚌 Ruta METRO: Gray Street → 3014 Delia (Airbnb). Necesito llegar del bus a mi apartamento temporal.')">🚌 Gray→Airbnb</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('💼 ¿Cuáles son mis opciones para buscar trabajo en Midtown desde el Airbnb? Rutas, tiempo, mejores zonas.')">💼 Midtown Jobs</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🏫 ¿Cómo llego de 3014 Delia Street a HCC Central Campus? Ruta METRO, tiempo, opciones.')">🏫 Delia→HCC</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Plan para buscar trabajo en Medical Center. Rutas desde Airbnb y desde Villa Luna después.')">🏥 Med Center</button>
-                        <button class="quick-btn" onclick="showRoutes()">🗺️ Ver Rutas</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('💼 ¿Dónde buscar trabajo en Midtown? Rutas, mejores zonas, empresas comunes.')">💼 Jobs</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('☕ Cafeterías con WiFi cercas del Airbnb para trabajar. Presupuesto amigable.')">☕ Cafés</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🏫 Cómo llego de Delia a HCC? Mejor ruta, tiempo, alternativas.')">🏫 HCC</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Búsqueda de trabajo en Medical Center. Rutas, networking, tips.')">🏥 Med</button>
+                        <button class="quick-btn" onclick="showRoutes()">🗺️ Rutas</button>
                     </div>
                     <div class="ai-chat" id="chat-history">
                         <div class="ai-msg ai-msg-bot">Hola, soy tu asistente de Houston. Tengo todos tus detalles: Airbnb en Delia (Jun 1-6), Villa Luna después, búsqueda de empleo en Midtown/Medical Center/Uptown. Pregunta sobre rutas, empleos, optimización. ¿Qué necesitas?</div>
@@ -1259,7 +1261,17 @@
         <p style="font-size: 0.85rem;">Presentación interactiva | Junio 1 lanzamiento | 17 días</p>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
+        let map = null;
+        let layers = {
+            cafes: null,
+            rutas: null,
+            jobs: null,
+            routes: {}
+        };
+        let activeRoute = null;
+
         function showSection(sectionId) {
             // Hide all sections
             const sections = document.querySelectorAll('.section');
@@ -1275,18 +1287,140 @@
             // Add active class to clicked button
             event.target.classList.add('active');
 
+            // Initialize map if ubicaciones section is shown
+            if (sectionId === 'ubicaciones') {
+                setTimeout(initializeMap, 100);
+            }
+
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function changeLocation(address, button) {
-            const mapEmbed = document.getElementById('map-embed');
-            mapEmbed.src = `https://maps.google.com/maps?q=${address}&output=embed`;
+        function initializeMap() {
+            if (map) return; // Already initialized
 
-            // Update active button
-            document.querySelectorAll('.map-btn').forEach(btn => btn.classList.remove('active'));
-            if (button) button.classList.add('active');
+            // Initialize map centered on Houston
+            map = L.map('mapa').setView([29.7589, -95.3677], 12);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Define locations
+            const locations = [
+                { name: '🏨 Airbnb (Jun 1-6)', lat: 29.7595, lng: -95.2835, color: '#8b5cf6', desc: '3014 Delia St | $283.05' },
+                { name: '🚌 Gray Street Station', lat: 29.7604, lng: -95.3698, color: '#ef4444', desc: 'Llegada: Jun 1 @ 12:15 PM' },
+                { name: '🏠 Villa Luna', lat: 29.7129, lng: -95.4295, color: '#10b981', desc: '2600 Westridge | Jun 6+' },
+                { name: '🏫 HCC Central', lat: 29.7489, lng: -95.3804, color: '#3b82f6', desc: '1300 Holman St' }
+            ];
+
+            // Add markers
+            locations.forEach(loc => {
+                L.circleMarker([loc.lat, loc.lng], {
+                    radius: 10,
+                    fillColor: loc.color,
+                    color: '#fff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map).bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
+            });
+
+            // Define cafes
+            const cafes = [
+                { name: 'Houston Public Library', lat: 29.7630, lng: -95.3700, desc: 'WiFi gratis, enchufes' },
+                { name: 'Starbucks Midtown', lat: 29.7489, lng: -95.3804, desc: '$3-6, WiFi' },
+                { name: 'Anvil Bar', lat: 29.7500, lng: -95.3850, desc: 'Networking, $4-8' }
+            ];
+
+            layers.cafes = L.layerGroup();
+            cafes.forEach(cafe => {
+                L.marker([cafe.lat, cafe.lng], {
+                    icon: L.divIcon({
+                        className: 'cafe-marker',
+                        html: '☕',
+                        iconSize: [24, 24]
+                    })
+                }).addTo(layers.cafes).bindPopup(`<strong>${cafe.name}</strong><br>${cafe.desc}`);
+            });
+
+            // Define job zones
+            const jobZones = [
+                { name: 'Midtown', lat: 29.7489, lng: -95.3804, radius: 1500 },
+                { name: 'Medical Center', lat: 29.7200, lng: -95.4100, radius: 2500 },
+                { name: 'Downtown', lat: 29.7604, lng: -95.3698, radius: 2000 }
+            ];
+
+            layers.jobs = L.layerGroup();
+            jobZones.forEach(zone => {
+                L.circle([zone.lat, zone.lng], {
+                    color: '#6366f1',
+                    fillColor: '#818cf8',
+                    fillOpacity: 0.15,
+                    weight: 2,
+                    radius: zone.radius,
+                    dashArray: '5, 5'
+                }).addTo(layers.jobs).bindPopup(`<strong>💼 ${zone.name}</strong><br>Job search zone`);
+            });
+
+            // Define routes
+            layers.routes.gray_airbnb = L.polyline([
+                [29.7604, -95.3698], // Gray St
+                [29.7619, -95.3650], // Red Line point 1
+                [29.7628, -95.3600], // Red Line point 2
+                [29.7595, -95.2835]  // Airbnb
+            ], { color: 'red', weight: 3, opacity: 0.7, dashArray: '5, 5' });
+
+            layers.routes.delia_hcc = L.polyline([
+                [29.7595, -95.2835], // Airbnb
+                [29.7550, -95.3400], // Route 44
+                [29.7489, -95.3804]  // HCC
+            ], { color: 'blue', weight: 3, opacity: 0.7, dashArray: '5, 5' });
+
+            layers.routes.delia_midtown = L.polyline([
+                [29.7595, -95.2835], // Airbnb
+                [29.7600, -95.3300], // Red Line
+                [29.7489, -95.3804]  // Midtown
+            ], { color: 'green', weight: 3, opacity: 0.7, dashArray: '5, 5' });
         }
+
+        function toggleLayer(layerName) {
+            if (!map) return;
+
+            if (map.hasLayer(layers[layerName])) {
+                map.removeLayer(layers[layerName]);
+            } else {
+                layers[layerName].addTo(map);
+            }
+        }
+
+        function highlightRoute(routeName) {
+            if (!map) return;
+
+            // Remove previous route
+            if (activeRoute && map.hasLayer(layers.routes[activeRoute])) {
+                map.removeLayer(layers.routes[activeRoute]);
+            }
+
+            // Add new route
+            if (layers.routes[routeName]) {
+                layers.routes[routeName].addTo(map);
+                activeRoute = routeName;
+
+                // Zoom to fit route
+                const bounds = layers.routes[routeName].getBounds();
+                map.fitBounds(bounds, { padding: [50, 50] });
+            }
+        }
+
+        // Initialize map on page load if ubicaciones is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('ubicaciones').classList.contains('active')) {
+                setTimeout(initializeMap, 100);
+            }
+        });
 
         async function sendMessage() {
             const input = document.getElementById('chat-input');
