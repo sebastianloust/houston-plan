@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Completo Houston 2026 — Interactivo</title>
-    <!-- Leaflet CSS for interactive map -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
     <style>
         * {
             margin: 0;
@@ -512,6 +510,166 @@
                 font-size: 0.85rem;
             }
         }
+
+        /* Map + AI Layout */
+        .map-ai-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .map-container {
+            position: relative;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .map-btn {
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            border: 1.5px solid #3b82f6;
+            background: white;
+            color: #3b82f6;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .map-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .map-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .ai-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .quick-prompts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quick-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .quick-btn:hover {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .ai-chat {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.75rem;
+            background: #fafbfc;
+        }
+
+        .ai-msg {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .ai-msg-user {
+            background: #eff6ff;
+            color: #0c2340;
+            text-align: right;
+        }
+
+        .ai-msg-bot {
+            background: #f0fdf4;
+            color: #0c2340;
+        }
+
+        .ai-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            font-family: inherit;
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .ai-send {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .ai-send:hover {
+            background: #2563eb;
+        }
+
+        @media (max-width: 768px) {
+            .map-ai-layout {
+                grid-template-columns: 1fr;
+            }
+            .ai-panel {
+                height: 350px;
+            }
+            .map-iframe {
+                height: 300px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -771,10 +929,38 @@
         <!-- UBICACIONES & MAPA -->
         <div id="ubicaciones" class="section">
             <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
-                <p style="color: #64748b; font-size: 0.9rem;">Puntos clave en Houston • Distancias desde Villa Luna Apartments</p>
+                <p style="color: #64748b; font-size: 0.9rem;">Mapa de Houston + Asistente IA • Presiona botones para explorar ubicaciones</p>
             </div>
 
-            <div id="mapa" style="width: 100%; height: 500px; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); background: #f1f5f9;"></div>
+            <div class="map-ai-layout">
+                <div class="map-container">
+                    <iframe id="map-embed" class="map-iframe" src="https://maps.google.com/maps?q=Houston+Texas&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="map-buttons">
+                        <button class="map-btn active" onclick="changeLocation('3014+Delia+Street+Houston+TX+77026', this)">🏨 Airbnb</button>
+                        <button class="map-btn" onclick="changeLocation('Downtown+Houston+Gray+Street+Station', this)">🚌 Gray St</button>
+                        <button class="map-btn" onclick="changeLocation('2600+Westridge+Houston+TX+77054', this)">🏠 Villa Luna</button>
+                        <button class="map-btn" onclick="changeLocation('1300+Holman+St+Houston+TX+77004', this)">🏫 HCC</button>
+                        <button class="map-btn" onclick="changeLocation('Texas+Medical+Center+Houston', this)">🏥 Medical</button>
+                        <button class="map-btn" onclick="changeLocation('Midtown+Houston+TX', this)">💼 Midtown</button>
+                    </div>
+                </div>
+                <div class="ai-panel">
+                    <div class="quick-prompts">
+                        <button class="quick-btn" onclick="sendQuickPrompt('☕ Cafés para trabajar cerca de Delia Street')">☕ Cafés</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🚌 Ruta METRO: Gray Street → 3014 Delia')">🚌 Ruta</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('💼 Empleos entry-level en Midtown')">💼 Trabajos</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🍔 Comida barata (<$10) cerca del Airbnb')">🍔 Comida</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Medical Center — cómo llegar y oportunidades')">🏥 Med</button>
+                    </div>
+                    <div class="ai-chat" id="chat-history">
+                        <div class="ai-msg ai-msg-bot">Hola, soy tu asistente de Houston. Pregunta sobre lugares, rutas, empleos o comida. ¿Qué necesitas?</div>
+                    </div>
+                    <div class="ai-input-row">
+                        <input type="text" class="ai-input" id="chat-input" placeholder="Pregunta..." onkeypress="if(event.key==='Enter') sendMessage()">
+                        <button class="ai-send" onclick="sendMessage()">→</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #3b82f6;">
@@ -1056,7 +1242,6 @@
         <p style="font-size: 0.85rem;">Presentación interactiva | Junio 1 lanzamiento | 17 días</p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script>
         function showSection(sectionId) {
             // Hide all sections
@@ -1073,125 +1258,71 @@
             // Add active class to clicked button
             event.target.classList.add('active');
 
-            // Initialize map if ubicaciones section is shown
-            if (sectionId === 'ubicaciones') {
-                setTimeout(initializeMap, 100);
-            }
-
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function initializeMap() {
-            // Remove existing map if it exists
-            if (window.map) {
-                window.map.remove();
-            }
+        function changeLocation(address, button) {
+            const mapEmbed = document.getElementById('map-embed');
+            mapEmbed.src = `https://maps.google.com/maps?q=${address}&output=embed`;
 
-            // Initialize map centered on Houston
-            const map = L.map('mapa').setView([29.7589, -95.3677], 12);
-            window.map = map;
-
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                maxZoom: 19
-            }).addTo(map);
-
-            // Define locations
-            const locations = [
-                {
-                    name: 'Villa Luna Apartments 🏠',
-                    lat: 29.7129,
-                    lng: -95.4295,
-                    color: '#10b981',
-                    desc: '2600 Westridge, Houston TX 77054<br>$799/mes | 832-573-1418'
-                },
-                {
-                    name: 'HCC Central Campus 🏫',
-                    lat: 29.7489,
-                    lng: -95.3804,
-                    color: '#3b82f6',
-                    desc: '1300 Holman St, Midtown<br>AAS AI • GI Bill 100%'
-                },
-                {
-                    name: 'Airbnb (Semana 1) 🏨',
-                    lat: 29.7600,
-                    lng: -95.3700,
-                    color: '#8b5cf6',
-                    desc: 'Midtown<br>June 1–6 • $283.05'
-                },
-                {
-                    name: '🚗 Dealership (F-150) — TBD',
-                    lat: 29.7400,
-                    lng: -95.3700,
-                    color: '#ef4444',
-                    desc: '<strong>Teléfono:</strong> 346-892-0440<br><strong>Ubicación:</strong> Confirmar en llamada<br>June 1–2'
-                },
-                {
-                    name: 'Planet Fitness 💪',
-                    lat: 29.7300,
-                    lng: -95.4200,
-                    color: '#f59e0b',
-                    desc: '$10–15/mes<br>Gym + ducha'
-                }
-            ];
-
-            // Add markers for locations
-            locations.forEach(loc => {
-                const marker = L.circleMarker([loc.lat, loc.lng], {
-                    radius: 10,
-                    fillColor: loc.color,
-                    color: '#fff',
-                    weight: 2,
-                    opacity: 1,
-                    fillOpacity: 0.8
-                }).addTo(map);
-
-                marker.bindPopup(`<strong>${loc.name}</strong><br>${loc.desc}`);
-            });
-
-            // Add work search zones (job hunting areas)
-            const workZones = [
-                {
-                    name: '💼 Downtown Houston',
-                    lat: 29.7604,
-                    lng: -95.3698,
-                    radius: 2000
-                },
-                {
-                    name: '💼 Medical Center',
-                    lat: 29.7200,
-                    lng: -95.4100,
-                    radius: 2500
-                },
-                {
-                    name: '💼 Midtown',
-                    lat: 29.7489,
-                    lng: -95.3804,
-                    radius: 1500
-                }
-            ];
-
-            // Draw work zones on map
-            workZones.forEach(zone => {
-                L.circle([zone.lat, zone.lng], {
-                    color: '#6366f1',
-                    fillColor: '#818cf8',
-                    fillOpacity: 0.15,
-                    weight: 2,
-                    dashArray: '5, 5',
-                    radius: zone.radius
-                }).addTo(map).bindPopup(`<strong>${zone.name}</strong><br>Zona de búsqueda de empleo`);
-            });
+            // Update active button
+            document.querySelectorAll('.map-btn').forEach(btn => btn.classList.remove('active'));
+            if (button) button.classList.add('active');
         }
 
-        // Initialize map on page load if ubicaciones is visible
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('ubicaciones').classList.contains('active')) {
-                setTimeout(initializeMap, 100);
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message to chat
+            addChatMessage(message, 'user');
+            input.value = '';
+            input.focus();
+
+            // Show loading state
+            const sendBtn = document.querySelector('.ai-send');
+            const originalText = sendBtn.textContent;
+            sendBtn.textContent = '...';
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+
+                if (data.reply) {
+                    addChatMessage(data.reply, 'bot');
+                } else if (data.error) {
+                    addChatMessage('Error: ' + data.error, 'bot');
+                }
+            } catch (error) {
+                addChatMessage('No pude conectar. Intenta de nuevo.', 'bot');
+            } finally {
+                sendBtn.textContent = originalText;
+                sendBtn.disabled = false;
             }
-        });
+        }
+
+        function sendQuickPrompt(message) {
+            document.getElementById('chat-input').value = message;
+            sendMessage();
+        }
+
+        function addChatMessage(text, role) {
+            const chatHistory = document.getElementById('chat-history');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ai-msg ai-msg-${role}`;
+            msgDiv.textContent = text;
+            chatHistory.appendChild(msgDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
     </script>
 </body>
 </html>
