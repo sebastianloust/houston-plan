@@ -15,68 +15,71 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(180deg, #fafbfc 0%, #f5f6f8 100%);
             min-height: 100vh;
             padding: 0;
+            color: #1f2937;
         }
 
         .header {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            padding: 2rem 1rem;
-            color: white;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: white;
+            padding: 2.5rem 2rem;
+            color: #111827;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .header h1 {
-            font-size: 2rem;
+            font-size: 1.875rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
         }
 
         .header p {
-            font-size: 0.95rem;
-            color: #cbd5e1;
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
         }
 
         .nav-tabs {
             display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.2);
+            gap: 0.75rem;
+            padding: 1.25rem 2rem;
+            background: white;
             overflow-x: auto;
-            justify-content: center;
+            justify-content: flex-start;
             flex-wrap: wrap;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .nav-btn {
-            padding: 0.7rem 1.5rem;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: #cbd5e1;
-            border-radius: 8px;
+            padding: 0.6rem 1.25rem;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #6b7280;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             white-space: nowrap;
         }
 
         .nav-btn:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            color: white;
+            border-color: #10b981;
+            color: #10b981;
+            background: #f0fdf4;
         }
 
         .nav-btn.active {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border-color: #2563eb;
+            background: #10b981;
+            border-color: #10b981;
             color: white;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
         }
 
         .container {
@@ -108,26 +111,29 @@
         /* INGRESOS */
         .total-box {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 12px;
+            padding: 2.5rem;
             color: white;
-            text-align: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+            text-align: left;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .total-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 0.85rem;
+            opacity: 0.95;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
         }
 
         .total-value {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
         }
 
         .grid-2 {
@@ -139,41 +145,55 @@
 
         .card {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            border-left: 4px solid #10b981;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f0f0f0;
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: #10b981;
+            border-radius: 10px 0 0 10px;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: #e5e7eb;
         }
 
-        .card.purple {
-            border-left-color: #8b5cf6;
+        .card.purple::before {
+            background: #8b5cf6;
         }
 
-        .card.blue {
-            border-left-color: #3b82f6;
+        .card.blue::before {
+            background: #06b6d4;
         }
 
-        .card.amber {
-            border-left-color: #f59e0b;
+        .card.amber::before {
+            background: #f59e0b;
         }
 
         .card-title {
             font-size: 1rem;
             font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 0.5rem;
+            color: #111827;
+            margin-bottom: 0.75rem;
         }
 
         .card-amount {
-            font-size: 1.8rem;
+            font-size: 1.875rem;
             font-weight: 700;
             color: #10b981;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
         }
 
         .card.purple .card-amount {
@@ -181,7 +201,7 @@
         }
 
         .card.blue .card-amount {
-            color: #3b82f6;
+            color: #06b6d4;
         }
 
         .card.amber .card-amount {
@@ -190,32 +210,34 @@
 
         .card-desc {
             font-size: 0.85rem;
-            color: #64748b;
-            line-height: 1.5;
+            color: #6b7280;
+            line-height: 1.6;
         }
 
         /* SISTEMA */
         .system-box {
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            margin-bottom: 2.5rem;
+            border: 1px solid #f0f0f0;
         }
 
         .system-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 1.5rem;
+            color: #111827;
+            margin-bottom: 1.75rem;
+            letter-spacing: -0.01em;
         }
 
         .system-row {
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e2e8f0;
+            gap: 1.5rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #f3f4f6;
             align-items: center;
         }
 
@@ -225,25 +247,33 @@
 
         .system-label {
             font-weight: 500;
-            color: #0f172a;
+            color: #374151;
+            font-size: 0.95rem;
         }
 
         .system-amount {
             font-weight: 700;
-            color: #0f172a;
+            color: #111827;
+            font-size: 0.95rem;
         }
 
         /* ESCENARIOS */
         .scenario-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            gap: 1rem;
-            padding: 1.25rem;
+            gap: 1.5rem;
+            padding: 1.5rem;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             margin-bottom: 1rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
             align-items: center;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scenario-row:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
         .scenario-badge {
@@ -305,23 +335,25 @@
 
         .car-card {
             background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            border-top: 3px solid #3b82f6;
-            transition: transform 0.3s ease;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border-left: 3px solid #06b6d4;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f0f0f0;
+            border-left: 3px solid #06b6d4;
         }
 
         .car-card:hover {
-            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
         .car-card.best {
-            border-top-color: #10b981;
+            border-left-color: #10b981;
         }
 
         .car-card.premium {
-            border-top-color: #f59e0b;
+            border-left-color: #f59e0b;
         }
 
         .car-badge {
@@ -378,71 +410,91 @@
 
         .rule {
             background: white;
-            border-radius: 12px;
-            padding: 1.25rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            border-top: 3px solid #ef4444;
+            border-radius: 10px;
+            padding: 1.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border-left: 3px solid #ef4444;
+            border: 1px solid #f0f0f0;
+            border-left: 3px solid #ef4444;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .rule:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
         .rule-num {
-            display: inline-block;
+            display: inline-flex;
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
+            background: #ef4444;
             color: white;
             border-radius: 6px;
-            display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 0.9rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .rule-title {
             font-size: 0.95rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #111827;
             margin-bottom: 0.5rem;
         }
 
         .rule-text {
             font-size: 0.8rem;
-            color: #64748b;
-            line-height: 1.5;
+            color: #6b7280;
+            line-height: 1.6;
         }
 
         .rule.green {
-            border-top-color: #10b981;
+            border-left-color: #10b981;
+        }
+
+        .rule.green .rule-num {
+            background: #10b981;
         }
 
         .rule.blue {
-            border-top-color: #3b82f6;
+            border-left-color: #06b6d4;
+        }
+
+        .rule.blue .rule-num {
+            background: #06b6d4;
         }
 
         .rule.amber {
-            border-top-color: #f59e0b;
+            border-left-color: #f59e0b;
+        }
+
+        .rule.amber .rule-num {
+            background: #f59e0b;
         }
 
         /* CARFAX */
         .carfax-box {
-            background: linear-gradient(135deg, #dbeafe, #eff6ff);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border-left: 4px solid #0284c7;
-            margin-bottom: 1.5rem;
+            background: #f0f9ff;
+            border-radius: 10px;
+            padding: 2rem;
+            border-left: 3px solid #06b6d4;
+            margin-bottom: 2rem;
+            border: 1px solid #cffafe;
+            border-left: 3px solid #06b6d4;
         }
 
         .carfax-title {
             font-size: 1rem;
             font-weight: 700;
-            color: #0c2340;
-            margin-bottom: 0.75rem;
+            color: #0c4a6e;
+            margin-bottom: 1rem;
         }
 
         .carfax-items {
             display: grid;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .carfax-item {
@@ -450,52 +502,55 @@
             grid-template-columns: auto 1fr;
             gap: 0.75rem;
             font-size: 0.85rem;
-            color: #0c2340;
+            color: #0c4a6e;
             align-items: start;
         }
 
         .carfax-check {
-            width: 18px;
-            height: 18px;
-            background: #0284c7;
+            width: 20px;
+            height: 20px;
+            background: #06b6d4;
             color: white;
-            border-radius: 3px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.7rem;
             font-weight: 700;
             flex-shrink: 0;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         .note {
-            background: linear-gradient(135deg, #fef3c7, #fef08a);
-            border-radius: 12px;
-            padding: 1.25rem;
+            background: #fffbf0;
+            border-radius: 10px;
+            padding: 2rem;
             border-left: 3px solid #f59e0b;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
+            border: 1px solid #fed7aa;
+            border-left: 3px solid #f59e0b;
         }
 
         .note-title {
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #92400e;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .note-text {
             font-size: 0.85rem;
             color: #92400e;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .footer {
             text-align: center;
-            color: #cbd5e1;
-            margin-top: 3rem;
-            padding: 2rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #6b7280;
+            margin-top: 4rem;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid #e5e7eb;
+            background: white;
         }
 
         @media (max-width: 768px) {
@@ -528,45 +583,48 @@
         .map-iframe {
             width: 100%;
             height: 500px;
-            border-radius: 12px;
+            border-radius: 10px;
             border: none;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
         .map-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 0.75rem;
+            margin-top: 1rem;
         }
 
         .map-btn {
-            padding: 0.4rem 0.9rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
-            border: 1.5px solid #3b82f6;
+            border: 1px solid #d1d5db;
             background: white;
-            color: #3b82f6;
+            color: #374151;
             cursor: pointer;
             font-size: 0.8rem;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .map-btn:hover {
-            background: #3b82f6;
+            background: #10b981;
             color: white;
+            border-color: #10b981;
         }
 
         .map-btn.active {
-            background: #3b82f6;
+            background: #10b981;
             color: white;
+            border-color: #10b981;
         }
 
         .ai-panel {
             background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
             display: flex;
             flex-direction: column;
             height: 500px;
@@ -575,49 +633,49 @@
         .quick-prompts {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 0.75rem;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .quick-btn {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
             border-radius: 20px;
-            padding: 0.3rem 0.7rem;
-            font-size: 0.7rem;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            color: #475569;
-            transition: all 0.2s ease;
+            color: #374151;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .quick-btn:hover {
-            background: #eff6ff;
-            color: #3b82f6;
-            border-color: #3b82f6;
+            background: #f0fdf4;
+            color: #10b981;
+            border-color: #10b981;
         }
 
         .ai-chat {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 0.75rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
             background: #fafbfc;
         }
 
         .ai-msg {
             margin-bottom: 0.75rem;
-            padding: 0.6rem 0.8rem;
-            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
             font-size: 0.8rem;
             line-height: 1.6;
             word-wrap: break-word;
         }
 
         .ai-msg-user {
-            background: #eff6ff;
-            color: #0c2340;
+            background: #dbeafe;
+            color: #0c4a6e;
             text-align: right;
             margin-left: 1rem;
         }
@@ -649,33 +707,34 @@
 
         .ai-input {
             flex: 1;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 0.75rem;
             font-size: 0.8rem;
             font-family: inherit;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .ai-input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
 
         .ai-send {
-            background: #3b82f6;
+            background: #10b981;
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .ai-send:hover {
-            background: #2563eb;
+            background: #059669;
         }
 
         @media (max-width: 768px) {
@@ -698,14 +757,14 @@
     </div>
 
     <div class="nav-tabs">
-        <button class="nav-btn active" onclick="showSection('ingresos')">💰 Ingresos</button>
-        <button class="nav-btn" onclick="showSection('gastos')">💸 Gastos</button>
-        <button class="nav-btn" onclick="showSection('resultado')">📊 Resultado</button>
-        <button class="nav-btn" onclick="showSection('carros')">🚗 F-150 XLT 2019</button>
-        <button class="nav-btn" onclick="showSection('ubicaciones')">📍 Ubicaciones</button>
-        <button class="nav-btn" onclick="showSection('viajes')">✈️ Viajes</button>
-        <button class="nav-btn" onclick="showSection('carfax')">🔍 CARFAX</button>
-        <button class="nav-btn" onclick="showSection('reglas')">⚡ Reglas</button>
+        <button class="nav-btn active" onclick="showSection('ingresos')">Ingresos</button>
+        <button class="nav-btn" onclick="showSection('gastos')">Gastos</button>
+        <button class="nav-btn" onclick="showSection('resultado')">Resultado</button>
+        <button class="nav-btn" onclick="showSection('carros')">F-150 XLT 2019</button>
+        <button class="nav-btn" onclick="showSection('ubicaciones')">Ubicaciones</button>
+        <button class="nav-btn" onclick="showSection('viajes')">Viajes</button>
+        <button class="nav-btn" onclick="showSection('carfax')">CARFAX</button>
+        <button class="nav-btn" onclick="showSection('reglas')">Reglas</button>
     </div>
 
     <div class="container">
@@ -719,22 +778,22 @@
 
             <div class="grid-2">
                 <div class="card">
-                    <div class="card-title">🎓 GI Bill Chapter 35</div>
+                    <div class="card-title">GI Bill Chapter 35</div>
                     <div class="card-amount">$1,400</div>
                     <div class="card-desc">Libre de impuestos. Deposito directo mensual a USAA.</div>
                 </div>
                 <div class="card purple">
-                    <div class="card-title">💼 Trabajo ($14/hr × 40hrs)</div>
+                    <div class="card-title">Trabajo ($14/hr × 40hrs)</div>
                     <div class="card-amount">$2,030</div>
                     <div class="card-desc">Neto después de impuestos. Bruto: ~$2,426.</div>
                 </div>
                 <div class="card blue">
-                    <div class="card-title">🚗 Uber/Eats</div>
+                    <div class="card-title">Uber/Eats</div>
                     <div class="card-amount">$412</div>
                     <div class="card-desc">Neto (bruto ~$450 − 15% tax reserve).</div>
                 </div>
                 <div class="card amber">
-                    <div class="card-title">💰 Financial Aid</div>
+                    <div class="card-title">Financial Aid</div>
                     <div class="card-amount">+$1,100</div>
                     <div class="card-desc">Esporádico. 70% → ahorro automático.</div>
                 </div>
@@ -743,19 +802,19 @@
             <div class="system-box">
                 <div class="system-title">Sistema de asignación (Houston)</div>
                 <div class="system-row">
-                    <span class="system-label">🎓 GI Bill ($1,400)</span>
+                    <span class="system-label">GI Bill ($1,400)</span>
                     <span class="system-amount">Paga vivienda ($999) + fondo emergencia</span>
                 </div>
                 <div class="system-row">
-                    <span class="system-label">💼 Trabajo ($2,030)</span>
+                    <span class="system-label">Trabajo ($2,030)</span>
                     <span class="system-amount">Paga F-150 ($245) + vida diaria ($400) + transporte ($120) + suscripciones ($100)</span>
                 </div>
                 <div class="system-row">
-                    <span class="system-label">🚗 Uber/Gig ($412)</span>
+                    <span class="system-label">Uber/Gig ($412)</span>
                     <span class="system-amount">Fondo flexible + emergencia (sin asignación fija)</span>
                 </div>
                 <div class="system-row">
-                    <span class="system-label">💾 Financial Aid (si aplica)</span>
+                    <span class="system-label">Financial Aid (si aplica)</span>
                     <span class="system-amount">70% → Ahorro automático</span>
                 </div>
             </div>
@@ -763,49 +822,49 @@
 
         <!-- GASTOS -->
         <div id="gastos" class="section">
-            <div class="total-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);">
+            <div class="total-box" style="background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 8px 24px rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.2);">
                 <div class="total-label">Total gastos mensuales (Houston optimizado)</div>
                 <div class="total-value">−$2,394</div>
             </div>
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #f59e0b;">
-                    <div class="card-title">🏠 Vivienda</div>
+                    <div class="card-title">Vivienda</div>
                     <div class="card-amount" style="color: #f59e0b;">$999</div>
                     <div class="card-desc">Renta $799 (Villa Luna) + Utilities ~$200</div>
                 </div>
-                <div class="card" style="border-left-color: #3b82f6;">
-                    <div class="card-title">🚗 Ford F-150 XLT</div>
-                    <div class="card-amount" style="color: #3b82f6;">$445</div>
+                <div class="card" style="border-left-color: #06b6d4;">
+                    <div class="card-title">Ford F-150 XLT</div>
+                    <div class="card-amount" style="color: #06b6d4;">$445</div>
                     <div class="card-desc">Gasolina $200 + Seguro USAA $150 + Mantenimiento $45 + Estacionamiento $50</div>
                 </div>
                 <div class="card" style="border-left-color: #8b5cf6;">
-                    <div class="card-title">🍔 Vida diaria</div>
+                    <div class="card-title">Vida diaria</div>
                     <div class="card-amount" style="color: #8b5cf6;">$420</div>
                     <div class="card-desc">Teléfono $120 + Comida + Higiene $300 (HEB/Farmers)</div>
                 </div>
                 <div class="card" style="border-left-color: #ec4899;">
-                    <div class="card-title">💻 Suscripciones</div>
+                    <div class="card-title">Suscripciones</div>
                     <div class="card-amount" style="color: #ec4899;">$90</div>
                     <div class="card-desc">Claude Pro $40 + Servicios $20 + Membresías $30</div>
                 </div>
                 <div class="card" style="border-left-color: #10b981;">
-                    <div class="card-title">🚌 Transporte Local</div>
+                    <div class="card-title">Transporte Local</div>
                     <div class="card-amount" style="color: #10b981;">$50</div>
                     <div class="card-desc">METRo pass</div>
                 </div>
                 <div class="card" style="border-left-color: #f472b6;">
-                    <div class="card-title">🎉 Diversión</div>
+                    <div class="card-title">Diversión</div>
                     <div class="card-amount" style="color: #f472b6;">$300</div>
                     <div class="card-desc">Comida chatarra/snacks + Salidas/eventos sociales + Ropa</div>
                 </div>
                 <div class="card" style="border-left-color: #fbbf24;">
-                    <div class="card-title">💆 Cuidado Personal</div>
+                    <div class="card-title">Cuidado Personal</div>
                     <div class="card-amount" style="color: #fbbf24;">$300</div>
                     <div class="card-desc">Suplementos + Gym + Doctor + Barber + Color de pelo + Tratamientos</div>
                 </div>
                 <div class="card" style="border-left-color: #06b6d4; opacity: 0.8;">
-                    <div class="card-title">🎵 Música (⏸️ Pausado)</div>
+                    <div class="card-title">Música (Pausado)</div>
                     <div class="card-amount" style="color: #06b6d4;">$0</div>
                     <div class="card-desc">Reanudar después de estabilización (June 30+)</div>
                 </div>
@@ -814,7 +873,7 @@
 
         <!-- RESULTADO -->
         <div id="resultado" class="section">
-            <div class="total-box" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);">
+            <div class="total-box" style="background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.2);">
                 <div class="total-label">Resultado mes normal (Houston optimizado)</div>
                 <div class="total-value">+$1,238</div>
                 <div style="font-size: 0.9rem; opacity: 0.9;">Disponible después de gastos | $700 ahorro automático + $538 libre/flex</div>
@@ -859,21 +918,21 @@
             <div class="system-box">
                 <div class="system-title">Distribución mes normal</div>
                 <div class="system-row">
-                    <span class="system-label">🏦 Ahorro fijo USAA Savings</span>
+                    <span class="system-label">Ahorro fijo USAA Savings</span>
                     <span class="system-amount">$700</span>
                 </div>
                 <div class="system-row">
-                    <span class="system-label">🚗 Reserva taxes Uber</span>
+                    <span class="system-label">Reserva taxes Uber</span>
                     <span class="system-amount">$70</span>
                 </div>
                 <div class="system-row">
-                    <span class="system-label">💰 Flex libre</span>
+                    <span class="system-label">Flex libre</span>
                     <span class="system-amount">$577</span>
                 </div>
             </div>
 
             <div class="note">
-                <div class="note-title">📈 Colchón de emergencia</div>
+                <div class="note-title">Colchón de emergencia</div>
                 <div class="note-text">En proceso. $700/mes automático generará colchón sólido en 4 meses. Protocolo: transferencia automática, sin tocar.</div>
             </div>
         </div>
@@ -886,37 +945,37 @@
 
             <div class="car-grid">
                 <div class="car-card best">
-                    <div class="car-badge best">✅ SELECCIONADA</div>
+                    <div class="car-badge best">SELECCIONADA</div>
                     <div class="car-name">2019 Ford F-150 XLT</div>
                     <div class="car-price">$16,000</div>
                     <div class="car-spec">
-                        <span>🔴</span> <span>Color: Negro con interior gris</span>
+                        <span>•</span> <span>Color: Negro con interior gris</span>
                     </div>
                     <div class="car-spec">
-                        <span>📊</span> <span>150,020 millas</span>
+                        <span>•</span> <span>150,020 millas</span>
                     </div>
                     <div class="car-spec">
-                        <span>⚙️</span> <span>Automática 10-speed</span>
+                        <span>•</span> <span>Automática 10-speed</span>
                     </div>
                     <div class="car-spec">
-                        <span>📄</span> <span>Título limpio ✅</span>
+                        <span>•</span> <span>Título limpio ✓</span>
                     </div>
                     <div class="car-spec">
-                        <span>🔧</span> <span>Recibos completos ✅</span>
+                        <span>•</span> <span>Recibos completos ✓</span>
                     </div>
                     <div class="car-spec">
-                        <span>⏰</span> <span>7 años (2019)</span>
+                        <span>•</span> <span>7 años (2019)</span>
                     </div>
                     <div class="car-spec">
-                        <span>🏪</span> <span>Dealership (346-892-0440)</span>
+                        <span>•</span> <span>Dealership (346-892-0440)</span>
                     </div>
                     <div class="car-spec">
-                        <span>📅</span> <span>Cita: June 1–2, 2026</span>
+                        <span>•</span> <span>Cita: June 1–2, 2026</span>
                     </div>
                 </div>
 
                 <div class="card" style="border-left-color: #10b981; margin-top: 0;">
-                    <div class="card-title">✅ Características F-150 XLT 2019</div>
+                    <div class="card-title">Características F-150 XLT 2019</div>
                     <div class="card-desc">
                         • Mayor confiabilidad<br>
                         • Mejor resale value<br>
@@ -928,7 +987,7 @@
                 </div>
 
                 <div class="card" style="border-left-color: #f59e0b;">
-                    <div class="card-title">⚠️ Plan de Acción</div>
+                    <div class="card-title">Plan de Acción</div>
                     <div class="card-desc">
                         1. Test drive June 1–2<br>
                         2. Revisar CARFAX (~$40)<br>
@@ -940,7 +999,7 @@
             </div>
 
             <div class="note">
-                <div class="note-title">📍 Contacto Dealership</div>
+                <div class="note-title">Contacto Dealership</div>
                 <div class="note-text"><strong>Teléfono:</strong> 346-892-0440 | <strong>Fecha:</strong> June 1–2, 2026 | <strong>Presupuesto:</strong> $16,000 cash (sin financiamiento)</div>
             </div>
         </div>
@@ -955,21 +1014,21 @@
                 <div class="map-container">
                     <div id="mapa" style="width: 100%; height: 500px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);"></div>
                     <div class="map-buttons">
-                        <button class="map-btn" onclick="toggleLayer('cafes')">☕ Cafeterías</button>
-                        <button class="map-btn" onclick="toggleLayer('rutas')">🚌 Rutas METRO</button>
-                        <button class="map-btn" onclick="toggleLayer('jobs')">💼 Job Zones</button>
-                        <button class="map-btn" onclick="highlightRoute('gray_airbnb')">📍 Gray→Airbnb</button>
-                        <button class="map-btn" onclick="highlightRoute('delia_hcc')">📍 Delia→HCC</button>
-                        <button class="map-btn" onclick="highlightRoute('delia_midtown')">📍 Delia→Midtown</button>
+                        <button class="map-btn" onclick="toggleLayer('cafes')">Cafeterías</button>
+                        <button class="map-btn" onclick="toggleLayer('rutas')">Rutas METRO</button>
+                        <button class="map-btn" onclick="toggleLayer('jobs')">Job Zones</button>
+                        <button class="map-btn" onclick="highlightRoute('gray_airbnb')">Gray→Airbnb</button>
+                        <button class="map-btn" onclick="highlightRoute('delia_hcc')">Delia→HCC</button>
+                        <button class="map-btn" onclick="highlightRoute('delia_midtown')">Delia→Midtown</button>
                     </div>
                 </div>
                 <div class="ai-panel">
                     <div class="quick-prompts">
-                        <button class="quick-btn" onclick="sendQuickPrompt('💼 ¿Dónde buscar trabajo en Midtown? Rutas, mejores zonas, empresas comunes.')">💼 Jobs</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('☕ Cafeterías con WiFi cercas del Airbnb para trabajar. Presupuesto amigable.')">☕ Cafés</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🏫 Cómo llego de Delia a HCC? Mejor ruta, tiempo, alternativas.')">🏫 HCC</button>
-                        <button class="quick-btn" onclick="sendQuickPrompt('🏥 Búsqueda de trabajo en Medical Center. Rutas, networking, tips.')">🏥 Med</button>
-                        <button class="quick-btn" onclick="showRoutes()">🗺️ Rutas</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('¿Dónde buscar trabajo en Midtown? Rutas, mejores zonas, empresas comunes.')">Jobs</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('Cafeterías con WiFi cercas del Airbnb para trabajar. Presupuesto amigable.')">Cafés</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('Cómo llego de Delia a HCC? Mejor ruta, tiempo, alternativas.')">HCC</button>
+                        <button class="quick-btn" onclick="sendQuickPrompt('Búsqueda de trabajo en Medical Center. Rutas, networking, tips.')">Med</button>
+                        <button class="quick-btn" onclick="showRoutes()">Rutas</button>
                     </div>
                     <div class="ai-chat" id="chat-history">
                         <div class="ai-msg ai-msg-bot">Hola, soy tu asistente de Houston. Tengo todos tus detalles: Airbnb en Delia (Jun 1-6), Villa Luna después, búsqueda de empleo en Midtown/Medical Center/Uptown. Pregunta sobre rutas, empleos, optimización. ¿Qué necesitas?</div>
@@ -983,7 +1042,7 @@
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #3b82f6;">
-                    <div class="card-title">🏫 HCC Central Campus</div>
+                    <div class="card-title">HCC Central Campus</div>
                     <div class="card-desc">
                         <strong>Dirección:</strong> 1300 Holman St, Midtown<br>
                         <strong>Distancia:</strong> ~2–3 millas (15–20 min)<br>
@@ -993,7 +1052,7 @@
                 </div>
 
                 <div class="card" style="border-left-color: #10b981;">
-                    <div class="card-title">🏠 Villa Luna Apartments</div>
+                    <div class="card-title">Villa Luna Apartments</div>
                     <div class="card-desc">
                         <strong>Dirección:</strong> 2600 Westridge, Houston TX 77054<br>
                         <strong>Zona:</strong> Medical Center / South Main<br>
@@ -1003,7 +1062,7 @@
                 </div>
 
                 <div class="card" style="border-left-color: #8b5cf6;">
-                    <div class="card-title">🏨 Airbnb (Semana 1) — CONFIRMADO</div>
+                    <div class="card-title">Airbnb (Semana 1) — CONFIRMADO</div>
                     <div class="card-desc">
                         <strong>Dirección:</strong> 3014 Delia Street, Houston, TX 77026<br>
                         <strong>Anfitrión:</strong> JD<br>
@@ -1016,7 +1075,7 @@
                 </div>
 
                 <div class="card" style="border-left-color: #f59e0b;">
-                    <div class="card-title">💪 Gimnasios Cerca (Optimizados por Distancia)</div>
+                    <div class="card-title">Gimnasios Cerca (Optimizados por Distancia)</div>
                     <div class="card-desc">
                         <strong>🏆 Recomendado: Compound Gym</strong><br>
                         • Distancia: ~2 km | Precio: $40–60/mes<br>
@@ -1034,7 +1093,7 @@
             </div>
 
             <div class="note">
-                <div class="note-title">📌 Puntos Críticos</div>
+                <div class="note-title">Puntos Críticos</div>
                 <div class="note-text">
                     • <strong>Zona de trabajo:</strong> Buscar empleos en Medical Center, Midtown, Downtown<br>
                     • <strong>Ruta diaria HCC:</strong> Villa Luna → HCC = 15–20 min (bus/camioneta)<br>
@@ -1051,7 +1110,7 @@
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #ef4444;">
-                    <div class="card-title">🚌 Opciones El Paso → Houston</div>
+                    <div class="card-title">Opciones El Paso → Houston</div>
                     <div class="card-desc">
                         <strong>✅ Recomendado:</strong> Greyhound + FlixBus<br>
                         • Salida: May 31 @ 5:40 PM (Greyhound)<br>
@@ -1069,26 +1128,26 @@
                 </div>
 
                 <div class="card" style="border-left-color: #3b82f6;">
-                    <div class="card-title">🚌 Transporte Local Houston</div>
+                    <div class="card-title">Transporte Local Houston</div>
                     <div class="card-desc">
                         <strong>Villa Luna → HCC Central Campus (~2–3 millas):</strong><br>
                         <br>
-                        <strong>🚌 METRo Bus (RECOMENDADO):</strong><br>
+                        <strong>METRo Bus (RECOMENDADO):</strong><br>
                         • Rutas 11, 82, 9 (cada 10–15 min)<br>
                         • Duración: 20–25 min<br>
                         • Costo: $1.50/viaje o $50/mes pass<br>
                         <br>
-                        <strong>🚗 Propio (F-150):</strong><br>
+                        <strong>Propio (F-150):</strong><br>
                         • Tiempo: 15 min directo<br>
                         • Gasolina: ~$150/mes<br>
                         • Estacionamiento HCC: $5–10/mes<br>
                         <br>
-                        <strong>💡 Estrategia:</strong> METRo diario + F-150 para emergencias
+                        <strong>Estrategia:</strong> METRo diario + F-150 para emergencias
                     </div>
                 </div>
 
                 <div class="card" style="border-left-color: #10b981;">
-                    <div class="card-title">🏨 Airbnb Houston (Semana 1) — CONFIRMADO</div>
+                    <div class="card-title">Airbnb Houston (Semana 1) — CONFIRMADO</div>
                     <div class="card-desc">
                         <strong>Dirección:</strong> 3014 Delia Street, 77026<br>
                         <strong>Anfitrión:</strong> JD<br>
@@ -1101,23 +1160,23 @@
                 </div>
 
                 <div class="card" style="border-left-color: #9b59b6;">
-                    <div class="card-title">🚌 Rutas METRO — Gray Street → Delia Street</div>
+                    <div class="card-title">Rutas METRO — Gray Street → Delia Street</div>
                     <div class="card-desc">
                         <strong>Ruta Recomendada:</strong> Red Line → Northline → Route 44<br>
                         <strong>Tiempo:</strong> ~45-50 minutos<br>
                         <strong>Costo:</strong> $1.25 (single) o $50 (7-day pass)<br>
                         <br>
                         <strong>Descanso (12:15 PM - 3:00 PM):</strong><br>
-                        📚 Houston Public Library (Main) — Wifi, baños, tranquilo<br>
-                        ☕ Starbucks Midtown — Alternativa rápida<br>
+                        Houston Public Library (Main) — Wifi, baños, tranquilo<br>
+                        Starbucks Midtown — Alternativa rápida<br>
                         <br>
                         <strong>Zonas de Empleo (primeros 30 días):</strong><br>
-                        🎯 Midtown: 2-3 miles | 📚 Medical Center: 6-8 miles
+                        Midtown: 2-3 miles | Medical Center: 6-8 miles
                     </div>
                 </div>
 
                 <div class="card" style="border-left-color: #f59e0b;">
-                    <div class="card-title">🚗 Test Drive F-150</div>
+                    <div class="card-title">Test Drive F-150</div>
                     <div class="card-desc">
                         <strong>Fecha:</strong> June 1–2 (primer/segundo día)<br>
                         <strong>Contacto:</strong> 346-892-0440 (Dealership)<br>
@@ -1129,7 +1188,7 @@
             </div>
 
             <div class="note">
-                <div class="note-title">✈️ Timeline General</div>
+                <div class="note-title">Timeline General</div>
                 <div class="note-text">
                     <strong>May 31:</strong> Salir de El Paso 5:40 PM<br>
                     <strong>June 1 12:15 PM:</strong> Llegar a Houston (Midtown)<br>
@@ -1145,7 +1204,7 @@
         <!-- CARFAX -->
         <div id="carfax" class="section">
             <div class="carfax-box">
-                <div class="carfax-title">⚡ Cómo hacerlo ahora (5 minutos)</div>
+                <div class="carfax-title">Cómo hacerlo ahora (5 minutos)</div>
                 <div class="carfax-items">
                     <div class="carfax-item">
                         <div class="carfax-check">1</div>
@@ -1172,7 +1231,7 @@
 
             <div class="grid-2">
                 <div class="card" style="border-left-color: #10b981;">
-                    <div class="card-title">✅ Buenas señales</div>
+                    <div class="card-title">Buenas señales</div>
                     <div class="card-desc">
                         • Sin accidentes<br>
                         • 1–2 dueños<br>
@@ -1182,7 +1241,7 @@
                     </div>
                 </div>
                 <div class="card" style="border-left-color: #f59e0b;">
-                    <div class="card-title">⚠️ Cuidado</div>
+                    <div class="card-title">Cuidado</div>
                     <div class="card-desc">
                         • 3+ dueños rápido<br>
                         • 1 accidente minor<br>
@@ -1192,7 +1251,7 @@
                     </div>
                 </div>
                 <div class="card" style="border-left-color: #ef4444;">
-                    <div class="card-title">❌ No compres</div>
+                    <div class="card-title">No compres</div>
                     <div class="card-desc">
                         • Accidentes major<br>
                         • Salvage/flood title<br>
@@ -1250,7 +1309,7 @@
             </div>
 
             <div class="note">
-                <div class="note-title">⚠️ Estas reglas son guardrails</div>
+                <div class="note-title">Estas reglas son guardrails</div>
                 <div class="note-text">No son sugerencias. Síguelas exactamente para sobrevivir y prosperar en Houston.</div>
             </div>
         </div>
